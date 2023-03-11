@@ -7,4 +7,5 @@
   <li>Using http to create simple node Server !</li>
   <li>Routing in Node</li>
   <li>Templates</li>
+  <li>Modules</li>
 </ol>

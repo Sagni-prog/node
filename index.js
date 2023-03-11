@@ -1,17 +1,11 @@
 const fs = require('fs');
 const http = require('http');
 const url = require('url');
+const templates = require('./modules/templates')
+
+const slugify = require('slugify');
 
 try {
-
-const templates = (template,content) => {
-
-   let HtmlTemplete = template.replace(/{{title}}/g,content.title);
-   HtmlTemplete = HtmlTemplete.replace(/{{body}}/g,content.body);
-   HtmlTemplete = HtmlTemplete.replace(/{{photo}}/g,content.photo_url);
-   
-   return HtmlTemplete;
-}
 
 	const data =fs.readFileSync(`${__dirname}/files/data.json`,'utf-8');
 	
@@ -19,6 +13,10 @@ const templates = (template,content) => {
 	const card = fs.readFileSync(`${__dirname}/index.html`,'utf-8');
 	
 	const postData = JSON.parse(data);
+	
+	const slug = postData.map(slug => slugify(slug.title,{ lower: true}));
+	
+	console.log(slug);
 	
 	const server = http.createServer((req,res) => {
 	    const path = req.url;
@@ -30,11 +28,8 @@ const templates = (template,content) => {
 			});
 			
 			const postHtml = postData.map(el => templates(card,el)).join('');
-			// console.log(postHtml)
 			
 			res.end(postHtml);
-			
-			
 			
 			
 		case '/posts': 
@@ -51,7 +46,7 @@ const templates = (template,content) => {
 	});
 	
 	server.listen(2000,() => {
-		console.log('server running on port 400');
+		console.log('server running on port 2000');
 	});
 	
 	
