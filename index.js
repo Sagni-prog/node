@@ -41,12 +41,12 @@ const templates = (template,content) => {
 			res.writeHead(200,{
 				'Content-type': 'application/json'
 			  });
-			//   res.end(data);
+			  res.end(data);
 	    default: 
 			res.writeHead(404,{
 				'Content-type': 'text/html'
 			  });
-	        // res.end('<h1>404 page not found</h1>')
+	        res.end('<h1>404 page not found</h1>')
 	    }
 	});
 	
