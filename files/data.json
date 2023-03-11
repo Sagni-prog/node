@@ -1,0 +1,15 @@
+
+[
+	{
+		"name": "Mike",
+		"dep": "SE",
+		"age": 20
+	},
+	{
+		"name": "Van",
+		"dep": "CS",
+		"age" : 22
+	}
+
+]
+
