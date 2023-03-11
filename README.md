@@ -6,4 +6,5 @@
   <li>Reading from and Writing to files asynchronously(Non-Blocking)! 🤷‍♂️</li>
   <li>Using http to create simple node Server !</li>
   <li>Routing in Node</li>
+  <li>Templates</li>
 </ol>
