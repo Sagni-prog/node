@@ -1,4 +1,4 @@
-<h1>Thi is My first Node Repository for learning purpuse</h1>
+<h1>This is My first Node Repository for learning purpuse</h1>
 <p>Covered Topics</p>
 <ol>
   <li>Running Node out of of the browser oops!</li>
