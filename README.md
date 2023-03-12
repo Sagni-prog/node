@@ -8,4 +8,6 @@
   <li>Routing in Node</li>
   <li>Templates</li>
   <li>Modules</li>
+  <li>Callbacks</li>
+  <li>Event loop</li>
 </ol>
