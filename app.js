@@ -15,9 +15,8 @@ fs.readFile('./files/input.txt','utf-8',() => {
   setImmediate(() => console.log("Immediate 2 from callback"));
   
   process.nextTick(() => console.log("process.nettTick"));
-  cryoto.pbkdf2('password','salt',100000,1024,'sha512', () => {
-   console.log(Date.now() - start, ' encrypted');
-  });
+  cryoto.pbkdf2Sync('password','salt',100000,1024,'sha512');
+  console.log(Date.now()-start, " password encrypted sync")
   cryoto.pbkdf2('password','salt',100000,1024,'sha512', () => {
    console.log(Date.now() - start, ' encrypted');
   });
