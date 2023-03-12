@@ -12,4 +12,5 @@
   <li>Event loop</li>
   <li>Thread pool</li>
   <li>Blocking event loop</li>
+  <li>Observer Pattern on Node</li>
 </ol>
