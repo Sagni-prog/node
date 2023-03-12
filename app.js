@@ -1,5 +1,8 @@
 const fs = require('fs');
+const cryoto = require('crypto');
 
+
+const start = Date.now();
 setTimeout(() => console.log("Timer 1"),0);
 setImmediate(() => console.log("Immediate"));
 
@@ -11,6 +14,23 @@ fs.readFile('./files/input.txt','utf-8',() => {
   setImmediate(() => console.log("Immediate 2 from callback"));
   
   process.nextTick(() => console.log("process.nettTick"));
+  cryoto.pbkdf2('password','salt',100000,1024,'sha512', () => {
+   console.log(Date.now() - start, ' encrypted');
+  });
+  cryoto.pbkdf2('password','salt',100000,1024,'sha512', () => {
+   console.log(Date.now() - start, ' encrypted');
+  });
+  cryoto.pbkdf2('password','salt',100000,1024,'sha512', () => {
+   console.log(Date.now() - start, ' encrypted');
+  });
+  cryoto.pbkdf2('password','salt',100000,1024,'sha512', () => {
+   console.log(Date.now() - start, ' encrypted');
+  });
+  
+  
+  cryoto.pbkdf2('password','salt',100000,1024,'sha512', () => {
+   console.log(Date.now() - start, ' encrypted');
+  });
 });
 
 console.log("syn chroneous");
