@@ -41,7 +41,7 @@ try {
 			res.writeHead(404,{
 				'Content-type': 'text/html'
 			  });
-	        res.end('<h1>404 page not found</h1>')
+	        res.end('<h1>404 page not found</h1>');
 	    }
 	});
 	
@@ -50,7 +50,8 @@ try {
 	});
 	
 	
-} catch (error) {
+  } catch (error) {
 	console.log(error.message);
 }
 
+ 
