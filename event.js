@@ -15,6 +15,7 @@ const server = http.createServer();
 server.on('request',(req,res) => {
 
     console.log("request recieved")
+    console.log(req.url)
    res.end("hello this is the request");
 });
 server.on('request',(req,res) => {

@@ -17,7 +17,7 @@ try {
 	const slug = postData.map(slug => slugify(slug.title,{ lower: true}));
 	
 	console.log(slug);
-	
+	 
 	const server = http.createServer((req,res) => {
 	    const path = req.url;
 	    
@@ -30,7 +30,6 @@ try {
 			const postHtml = postData.map(el => templates(card,el)).join('');
 			
 			res.end(postHtml);
-			
 			
 		case '/posts': 
 			res.writeHead(200,{
