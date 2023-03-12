@@ -11,4 +11,5 @@
   <li>Callbacks</li>
   <li>Event loop</li>
   <li>Thread pool</li>
+  <li>Blocking event loop</li>
 </ol>
