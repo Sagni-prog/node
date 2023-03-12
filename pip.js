@@ -7,7 +7,6 @@ server.on('request',(req,res) => {
     
     readable.pipe(res);
     
-     
 });
 
 
