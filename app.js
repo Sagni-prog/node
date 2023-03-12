@@ -3,6 +3,7 @@ const cryoto = require('crypto');
 
 
 const start = Date.now();
+process.env.UV_THREADPOOL_SIZE = 2;
 setTimeout(() => console.log("Timer 1"),0);
 setImmediate(() => console.log("Immediate"));
 
