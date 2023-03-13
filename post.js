@@ -54,11 +54,39 @@ const getPostById = (req,res) => {
        
     }); 
   }
+  
+  const updatePost = (req,res) => {
+
+    const id = req.params.id * 1;
+    const newPost = req.body;
+         const post = posts.find(el => el.post_id === id);
+         const firstSlice = posts.slice(0,id - 1);
+         const secondSlice = posts.slice(id,posts.length);
+         
+         const updatedPost = Object.assign({post_id: id, },  newPost);
+         
+         const newPosts = [
+              firstSlice,
+              updatedPost,
+              secondSlice
+         ];
+         
+         fs.writeFile(`${__dirname}/data/posts.json`,JSON.stringify(newPosts),err => {
+            res.status(201).json({
+            status: "success", 
+            data: {
+               newPosts
+            }
+            });
+        });
+        
+    }
 
 
 app.get('/api/v1/posts',getAllPosts);
 app.post('/api/v1/posts',addPost);
 app.get('/api/v1/posts/:id',getPostById);
+app.patch('/api/v1/posts/:id',updatePost);
 
 
 
