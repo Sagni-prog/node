@@ -14,4 +14,6 @@
   <li>Blocking event loop</li>
   <li>Observer Pattern on Node</li>
   <li>Streams(Readable)</li>
+  <li>Express</li>
+  <li>simple CRUD on json data using express(Post)</li>
 </ol>
