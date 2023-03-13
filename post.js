@@ -4,6 +4,13 @@ const fs = require('fs');
 const app = new express();
 app.use(express.json());
 
+app.use((req,res,next) => {
+   console.log("middleware");
+   next();
+});
+
+
+
 const posts = JSON.parse(fs.readFileSync(`${__dirname}/data/posts.json`,'utf-8'));
 
 const getAllPosts = (req,res) => {
