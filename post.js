@@ -37,7 +37,26 @@ app.post('/api/v1/posts',(req,res) => {
         });
     });
     
-    console.log(posts)
+});
+
+
+app.get('/api/v1/posts/:id',(req,res) => {
+  const id = req.params.id * 1;
+  const post = posts.find(el => el.post_id === id); 
+  
+    if(!post){
+       return res.status(404).json({
+            status: "fail", 
+            message: "not found", 
+         }); 
+    }
+  res.status(200).json({
+     status: "success", 
+     data: {
+        post
+     }
+     
+  }); 
 });
 
 const port = 4000;
