@@ -15,6 +15,8 @@ app.use((req,res,next) => {
 
 const posts = JSON.parse(fs.readFileSync(`${__dirname}/data/posts.json`,'utf-8'));
 
+const users = JSON.parse(fs.readFileSync(`${__dirname}/data/users.json`,'utf-8'));
+
 const getAllPosts = (req,res) => {
 
     res.status(200).json({
@@ -90,12 +92,38 @@ const getPostById = (req,res) => {
         });
         
     }
+    
+    const getAllUsers = (req,res) => {
+      res.status(200).json({
+          status: 'success',
+          results: users.length,
+          data: {
+               users
+          }
+          
+      });
+ }
+ 
+ 
+ const postRouter = express.Router();
+ const userRouter = express.Router();
+ 
+ app.use('/api/v1/posts',postRouter);
+ app.use('/api/v1/users',userRouter);
 
+ postRouter
+   .route('/')
+   .get(getAllPosts)
+   .post(addPost);
 
-app.get('/api/v1/posts',getAllPosts);
-app.post('/api/v1/posts',addPost);
-app.get('/api/v1/posts/:id',getPostById);
-app.patch('/api/v1/posts/:id',updatePost);
+postRouter
+   .route('/:id')
+   .get(getPostById)
+   .patch(updatePost);
+
+userRouter
+   .route('/')
+   .get(getAllUsers);
 
 
 

@@ -1,0 +1,22 @@
+
+[
+	{
+        "id": 1,
+	    "name": "Mike Van",
+	    "email": "mike@gmail.com",
+	    "password": "123"
+	},
+	{
+        "id": 2,
+	    "name": "John Marker",
+	    "email": "john@gmail.com",
+	    "password": "123"
+	},
+	{
+        "id": 1,
+	    "name": "Mavic Amberr",
+	    "email": "mavik@gmail.com",
+	    "password": "123"
+	}
+]
+
