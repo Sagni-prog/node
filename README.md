@@ -1,3 +1,5 @@
+<img src = 'https://www.opptrends.com/wp-content/uploads/2020/07/Why-you-Should-Learn-Node.JS-In-2020.jpeg'  alt = 'node js photo'/>
+
 <h1>This is My first Node Repository for learning purpuse</h1>
 <p>Covered Topics</p>
 <ol>
