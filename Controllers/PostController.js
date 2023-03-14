@@ -2,6 +2,22 @@ const express = require('express');
 const fs = require('fs');
 
 const posts = JSON.parse(fs.readFileSync(`${__dirname}/../data/posts.json`,'utf-8'));
+
+// middleware that check valid id
+
+exports.checkId = (req,res,next,val) => {
+    if(req.params.id * 1 > posts.length){
+    
+    console.log("Post id: ",val);
+       return res.status(404).json({
+          status: 'fail',
+          message: 'Invalid Id'
+       });
+       
+    }
+    
+    next();
+}
    
     exports.getAllPosts = (req,res) => {
 

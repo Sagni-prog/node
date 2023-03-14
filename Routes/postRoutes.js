@@ -3,7 +3,10 @@ const fs = require('fs');
 const PostController = require('./../Controllers/PostController');
 
 
+
 const router = express.Router();
+
+router.param('id',PostController.checkId);
 
 router
     .route('/')
