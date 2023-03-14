@@ -18,4 +18,5 @@
   <li>simple CRUD on json data using express(Post)</li>
   <li>Middleware and request life cyle in express</li>
   <li>Mounting routers</li>
+  <li>Param middleware</li>
 </ol>
