@@ -8,10 +8,28 @@ const router = express.Router();
 
 router.param('id',PostController.checkId);
 
+
+// middleware that validates fields
+const checkBody = (req,res,next) => {
+   if(req.method === 'POST'){
+       if(!req.body.title || !req.body.body){
+           return res.status(400).json({
+               status : 'fail',
+               message: 'fields cant be null'
+           });
+       }
+       
+       console.log('working...');
+    
+   }
+   
+   next();
+}
+
 router
     .route('/')
     .get(PostController.getAllPosts)
-    .post(PostController.addPost);
+    .post(checkBody,PostController.addPost);
 
 router
     .route('/:id')
