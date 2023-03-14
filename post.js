@@ -29,7 +29,7 @@ app.use((req,res,next) => {
 //  console.log(process.env)
 //  console.log(process.env.password)
 
-const port = process.env.port;
+const port = process.env.PORT;
 app.listen(port,() => {
      console.log("app running on port 4000");
 });
