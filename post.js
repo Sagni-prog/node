@@ -26,8 +26,6 @@ app.use((req,res,next) => {
  app.use('/api/v1/posts',postRouter);
  app.use('/api/v1/users',userRouter);
  
-//  console.log(process.env)
-//  console.log(process.env.password)
 
 const port = process.env.PORT;
 app.listen(port,() => {
