@@ -7,18 +7,15 @@ const userRouter = require('./Routes/userRoutes');
 const app = new express();
 app.use(express.json());
 app.use(morgan('dev'));
+app.use(express.static(`${__dirname}/public`));
 
 app.use((req,res,next) => {
    console.log("middleware");
    next();
 });
 
- 
  app.use('/api/v1/posts',postRouter);
  app.use('/api/v1/users',userRouter);
-
-
-
 
 
 const port = 4000;

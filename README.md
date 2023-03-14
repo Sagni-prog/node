@@ -21,4 +21,5 @@
   <li>Middleware and request life cyle in express</li>
   <li>Mounting routers</li>
   <li>Param middleware</li>
+  <li>Serving static files in express</li>
 </ol>
