@@ -1,17 +1,41 @@
 const express = require('express');
 const fs = require('fs');
 const dotenv = require('dotenv');
-
 const morgan = require('morgan');
+const mongoose = require('mongoose');
 const postRouter = require('./Routes/postRoutes');
 const userRouter = require('./Routes/userRoutes');
 
 dotenv.config({path: './config.env'});
 
+mongoose
+   .connect(process.env.DATABASE_LOCAL,{
+       useNewUrlParser: true,
+      //  useCreateIndex: true,
+      //  useFindAndModify: false
+   })
+    .then((conn) => {
+    
+      console.log("connected")
+    })
+    .catch(() => console.log("not able to connect to the database"))
 
-
-const app = new express();
-app.use(express.json());
+  const userShema = new mongoose.Schema({ 
+           name: {
+                 type: string,
+                 required: [true,"name is required"],
+                 unique: true
+           },
+           email: {
+                 type: string,
+                 required: [true,"email is required"]
+              }
+         }); 
+   
+   
+   const User = mongoose.model('User',userShema);
+   const app = new express();
+   app.use(express.json());
 
 if(process.env.NODE_ENV === 'development'){
    app.use(morgan('dev'));
