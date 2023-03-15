@@ -22,18 +22,30 @@ mongoose
 
   const userShema = new mongoose.Schema({ 
            name: {
-                 type: string,
+                 type: "string",
                  required: [true,"name is required"],
                  unique: true
            },
            email: {
-                 type: string,
+                 type: "string",
                  required: [true,"email is required"]
               }
          }); 
    
    
    const User = mongoose.model('User',userShema);
+   
+   const newUser = new User({
+         name: "Mike Bill",
+         email: "mike@gmail.com",
+   });
+   
+   newUser.save().then(doc => {
+      console.log(doc);
+   }).catch(err => {
+     console.log(err);
+   })
+   
    const app = new express();
    app.use(express.json());
 
