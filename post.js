@@ -46,6 +46,18 @@ mongoose
      console.log(err);
    })
    
+   const query = {name: "Mike"}
+   
+   User.find(query)
+                   .then((person) => {
+                      console.log(person);
+                   })
+                   .catch((err) => {
+                      console.log(err)
+                   })
+   
+   
+   
    const app = new express();
    app.use(express.json());
 
