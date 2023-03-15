@@ -26,3 +26,8 @@
 </ol>
  <img src='https://cdnp1.stackassets.com/d60d308fcc3fd88fa7399e365ee224823a8b8043/store/bbdaa5531a9edf0e32fbe7b4eefd0e1e904e25d1769e1bfd9d21c1a5343a/be43c6b821b5eeeaff7a3c99e2e8ab8e64f2eada_main_hero_image.jpg' alt = 'mongodb photo' />
  <h1>MongoDb with express</h1>
+ <ol>
+    <li>Connecting express with mongodb database</li>
+    <li>Schema and Model</li>
+    <li>Querying the database</li>
+ </ol>
