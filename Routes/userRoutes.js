@@ -1,0 +1,1 @@
+const PostController = require('./../Controllers/PostController');
