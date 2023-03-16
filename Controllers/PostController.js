@@ -1,7 +1,7 @@
 const express = require('express');
 const fs = require('fs');
 
-const posts = JSON.parse(fs.readFileSync(`${__dirname}/../data/posts.json`,'utf-8'));
+const posts = JSON.parse(fs.readFileSync(`${__dirname}/../learn/data/posts.json`,'utf-8'));
 
 // middleware that check valid id
 
@@ -39,7 +39,7 @@ exports.checkId = (req,res,next,val) => {
     
    posts.push(newPost);
    
-   fs.writeFile(`${__dirname}/data/posts.json`,JSON.stringify(posts),err => {
+   fs.writeFile(`${__dirname}/learn/data/posts.json`,JSON.stringify(posts),err => {
        res.status(201).json({
        status: "success", 
        data: {
@@ -85,7 +85,7 @@ exports.checkId = (req,res,next,val) => {
               secondSlice
          ];
          
-         fs.writeFile(`${__dirname}/data/posts.json`,JSON.stringify(newPosts),err => {
+         fs.writeFile(`${__dirname}/learn/data/posts.json`,JSON.stringify(newPosts),err => {
             res.status(201).json({
             status: "success", 
             data: {

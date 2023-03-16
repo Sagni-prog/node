@@ -4,15 +4,13 @@ const app = require('./app');
 
 mongoose
    .connect(process.env.DATABASE_LOCAL,{
-       useNewUrlParser: true,
-       useCreateIndex: true,
-       useFindAndModify: false
+       useNewUrlParser: true
    })
     .then((conn) => {
     
-      console.log("connected")
+      console.log("connected");
     })
-    .catch(() => console.log("not able to connect to the database"))
+    .catch(() => console.log("not able to connect to the database"));
 
 const port = process.env.PORT;
 app.listen(port, () => {
