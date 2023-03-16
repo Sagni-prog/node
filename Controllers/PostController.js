@@ -42,14 +42,30 @@ const Post = require('./../Models/Post');
            message: err
         });
     }
-    
-    
 }
 
+ exports.getPost = async(req,res) => {
  
+ try {
+       const id = req.params.id;
+       const post = await Post.findById(id);
+       
+       res.status(200).json({
+           status: "success",
+           data: {
+              post
+           }
+       });
+ } catch (error) {
+       res.status(400).json({
+            status: "fail",
+            message: error
+       });
+   }
+    
+ }
  exports.getPostById = (req,res) => {
     const id = req.params.id * 1;
-    const post = posts.find(el => el.post_id === id); 
     
       if(!post){
          return res.status(404).json({
