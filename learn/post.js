@@ -20,7 +20,7 @@ mongoose
     })
     .catch(() => console.log("not able to connect to the database"))
 
-  const userShema = new mongoose.Schema({ 
+  const userSchema = new mongoose.Schema({ 
            name: {
                  type: "string",
                  required: [true,"name is required"],
@@ -33,7 +33,7 @@ mongoose
          }); 
    
    
-   const User = mongoose.model('User',userShema);
+   const User = mongoose.model('User',userSchema);
    
    const newUser = new User({
          name: "Mike Bill",
