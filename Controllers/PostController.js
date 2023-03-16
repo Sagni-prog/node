@@ -18,6 +18,7 @@ exports.checkId = (req,res,next,val) => {
     
     next();
 }
+
    
     exports.getAllPosts = (req,res) => {
 
