@@ -1,54 +1,51 @@
-const express = require('express');
-const fs = require('fs');
+const Post = require('./../Models/Post'); 
 
-const posts = JSON.parse(fs.readFileSync(`${__dirname}/../learn/data/posts.json`,'utf-8'));
 
-// middleware that check valid id
-
-exports.checkId = (req,res,next,val) => {
-    if(req.params.id * 1 > posts.length){
-    
-    console.log("Post id: ",val);
-       return res.status(404).json({
-          status: 'fail',
-          message: 'Invalid Id'
+  exports.create = async (req,res) => {
+  
+  try {
+   
+         const post = await Post.create({
+            title : req.body.title,
+            post_body: req.body.post_body,   
        });
        
+       res.status(201).json({
+          status: "success",
+          data: {
+             post
+          }
+       });
+  } catch (error) {
+        res.status(400).json({
+           status: "fail",
+           message: err
+        });
+      }       
+  }
+
+    exports.index = async (req,res) => {
+    
+    try {
+         const posts = await Post.find();
+         
+         res.status(200).json({
+               status: "success",
+               results: posts.length,
+               data: {
+                       posts 
+                }
+         });
+    } catch (error) {
+        res.status(400).json({
+           status: "fail",
+           message: err
+        });
     }
     
-    next();
-}
-
-   
-    exports.getAllPosts = (req,res) => {
-
-    res.status(200).json({
-          status: "success",
-          results: posts.length,
-          data: {
-                  posts 
-           }
-    });
-}
-
-  exports.addPost = (req,res) => {
-     
-    const data = req.body;
-    const newId = posts[posts.length - 1].post_id + 1;
-    const newPost = Object.assign({post_id: newId, }, data);
     
-   posts.push(newPost);
-   
-   fs.writeFile(`${__dirname}/learn/data/posts.json`,JSON.stringify(posts),err => {
-       res.status(201).json({
-       status: "success", 
-       data: {
-          newPost
-       }
-       });
-   });
-   
 }
+
  
  exports.getPostById = (req,res) => {
     const id = req.params.id * 1;
