@@ -4,7 +4,7 @@ const dotenv = require('dotenv');
 const postRouter = require('./Routes/postRoutes');
 const userRouter = require('./Routes/userRoutes');
 
-dotenv.config({path: './config.env'});
+dotenv.config({path: './.env'});
 
 const app = express();
 
