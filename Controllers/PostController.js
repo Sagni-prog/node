@@ -70,10 +70,9 @@ const Post = require('./../Models/Post');
    
    try {
     
-   
       const posts = await Post.findByIdAndUpdate(
                 req.params.id,
-              { "title": req.body.title },
+                req.body,
               {
                new: true,
                runValidators: true
@@ -90,6 +89,26 @@ const Post = require('./../Models/Post');
             status: "fail",
             message: error
        });
-   }     
+   }   
 }
+
+
+exports.destroy = async(req,res) => {
+   
+   try {
+        const posts = await Post.findByIdAndDelete(req.params.id);
+          
+        res.status(204).json({
+            status: "success",
+            data: {
+               posts
+            }
+        });
+   } catch (error) {
+         res.status(404).json({
+            status: "fail",
+            message: error
+         })
+     } 
+  }
    

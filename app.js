@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const dotenv = require('dotenv');
 const postRouter = require('./Routes/postRoutes');
 const userRouter = require('./Routes/userRoutes');
+const PostController = require('./Controllers/PostController');
 
 dotenv.config({path: './.env'});
 
@@ -25,8 +26,11 @@ app.get('/',(req,res) => {
     res.status(200).send("this is from express");
 });
 
+ 
  app.use('/api/v1/posts',postRouter);
  app.use('/api/v1/users',userRouter);
+ 
+//  app.delete('/api/v1/post/:id',PostController.destroy);
 
 module.exports = app;
 
