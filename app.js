@@ -34,7 +34,7 @@ app.get('/',(req,res) => {
 app.all('*',(req,res,next) => {
     res.status(404).json({
         status: "fail",
-        message: `Cant find ${req.originalUrl}`
+        message: `Cant find ${req.originalUrl} on this server`
     });
 })
 
