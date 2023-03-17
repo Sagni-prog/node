@@ -47,9 +47,13 @@ const PostSchema = mongoose.Schema({
  }); 
  
  PostSchema.pre('save',function(next){
+    console.log("this is the document middleware: ",this);
+    next()
+ })
  
-    this.post_photo.photo_name = this.title;
+ PostSchema.pre('find',function(next){
     
+    console.log("this is the query middleware: ",this);
     next();
    
  });
@@ -60,7 +64,12 @@ const PostSchema = mongoose.Schema({
     console.log($post);
    
    next();
- })
+ });
+ 
+ PostSchema.pre('aggregate',function(next){
+   console.log("this is the aggregate middlewarw: ",this);
+   next()
+ });
 
 const Post = mongoose.model("Post",PostSchema);
 
