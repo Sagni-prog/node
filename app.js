@@ -29,8 +29,14 @@ app.get('/',(req,res) => {
  
  app.use('/api/v1/posts',postRouter);
  app.use('/api/v1/users',userRouter);
- 
-//  app.delete('/api/v1/post/:id',PostController.destroy);
+
+   
+app.all('*',(req,res,next) => {
+    res.status(404).json({
+        status: "fail",
+        message: `Cant find ${req.originalUrl}`
+    });
+})
 
 module.exports = app;
 

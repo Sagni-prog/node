@@ -1,11 +1,13 @@
 const mongoose = require('mongoose');
 const slugify = require('slugify');
+const validator = require('validator');
 
 const PostSchema = mongoose.Schema({
 
      title: {
       type: String,
-      required: [true,"Title is required"]
+      required: [true,"Title is required"],
+      // validate: validator.isAlpha
      },
      post_body: {
          type: String,
