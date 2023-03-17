@@ -31,4 +31,5 @@
     <li>Connecting express with mongodb database</li>
     <li>Schema and Model</li>
     <li>Querying the database</li>
+    <li>Middlewares in mongoose</li>
  </ol>
