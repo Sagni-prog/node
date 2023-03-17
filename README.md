@@ -33,4 +33,5 @@
     <li>Querying the database</li>
     <li>Middlewares in mongoose</li>
     <li>Document Middlewares</li>
+    <li>Query Middlewares</li>
  </ol>
