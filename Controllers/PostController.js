@@ -69,7 +69,15 @@ const Post = require('./../Models/Post');
    exports.update = async(req,res) => {
    
    try {
-      const posts = findByIdAndUpdate(req.body.id,{"title": req.body.title});
+    
+   
+      const posts = await Post.findByIdAndUpdate(
+                req.params.id,
+              { "title": req.body.title },
+              {
+               new: true,
+               runValidators: true
+      });
    
    res.status(200).json({
          status: "success",
