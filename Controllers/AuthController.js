@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { promisify } = require('util');
 const User = require('./../Models/User');
 const AppError = require('./../utils/appError');
 
@@ -69,4 +70,46 @@ exports.login = async(req,res,next) => {
         }
     });
       
+}
+
+exports.protect = async (req,res,next) => {
+   
+   let token;
+   
+   if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
+      token = req.headers.authorization.split(' ')[1];
+   }
+   
+   if(!token){
+       return next(
+                 new AppError(
+                         "Anuthorized",
+                         401
+                     )
+                );
+      }
+   
+  const decoded = await promisify(jwt.verify)(token,process.env.JWT_SECRET);
+  
+  const user = User.findById(decoded.id);
+  if(!user){
+     return(
+         new AppError(
+             "No User of this credential found",
+             401
+         )
+     )
+  }
+  
+  if(await user.isPasswordChangedAfterToken(decoded.iat)){
+      return next(
+                new AppError(
+                       "You have changed your password",
+                       401
+                )
+         )
+  }
+   
+ this.user = user;
+    next();
 }

@@ -17,7 +17,7 @@ const UserSchema = new mongoose.Schema({
      password: {
         type: String,
         required: [true,'Please fill your password'],
-        minlength: 8,
+        minlength: 8, 
         select: false
      },
      passwordConfirm: {
@@ -28,7 +28,8 @@ const UserSchema = new mongoose.Schema({
               return el === this.password;
            }
         }
-     }
+     },
+     passwordChanged_at: Date
      
 });
 
@@ -45,6 +46,18 @@ UserSchema.pre('save',async function(next){
 UserSchema.methods.authenticate = async function(password,userPassword){
    return await bcrypt.compare(password,userPassword);
 }
+UserSchema.methods.isPasswordChangedAfterToken = async function(JWTTimestamp){
+          if(this.passwordChanged_at){
+              const changedAtTimestamp = parseInt(
+                     this.passwordChanged_at.getTime() /1000,
+                     10
+              );
+              
+              return await JWTTimestamp < changedAtTimestamp;
+          }
+          
+         return false;
+   }
 
 const User = mongoose.model('User',UserSchema);
 module.exports = User;
