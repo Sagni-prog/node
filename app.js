@@ -23,8 +23,8 @@ app.use((req,res,next) => {
    console.log("middleware");
    next();
 });
- 
-//  app.post('/signup',AuthController.signup);
+
+
  app.use('/api/v1/posts',postRouter);
  app.use('/api/v1/users',userRouter);
 
