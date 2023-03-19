@@ -46,12 +46,14 @@ UserSchema.pre('save',async function(next){
 UserSchema.methods.authenticate = async function(password,userPassword){
    return await bcrypt.compare(password,userPassword);
 }
-UserSchema.methods.isPasswordChangedAfterToken = async function(JWTTimestamp){
+UserSchema.methods.changedPasswordAfter = async function(JWTTimestamp){
           if(this.passwordChanged_at){
               const changedAtTimestamp = parseInt(
                      this.passwordChanged_at.getTime() /1000,
                      10
               );
+              
+              console.log("JWT: ",JWTTimestamp," ,PT: ",changedAtTimestamp)
               
               return await JWTTimestamp < changedAtTimestamp;
           }

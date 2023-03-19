@@ -91,7 +91,8 @@ exports.protect = async (req,res,next) => {
    
   const decoded = await promisify(jwt.verify)(token,process.env.JWT_SECRET);
   
-  const user = User.findById(decoded.id);
+
+  const user = await User.findById(decoded.id);
   if(!user){
      return(
          new AppError(
@@ -101,7 +102,11 @@ exports.protect = async (req,res,next) => {
      )
   }
   
-  if(await user.isPasswordChangedAfterToken(decoded.iat)){
+  console.log("User: ",user);
+  
+ 
+  
+  if(await user.changedPasswordAfter(decoded.iat)){
       return next(
                 new AppError(
                        "You have changed your password",
@@ -111,5 +116,6 @@ exports.protect = async (req,res,next) => {
   }
    
  this.user = user;
+ 
     next();
 }
