@@ -5,7 +5,8 @@ const postRouter = require('./Routes/postRoutes');
 const userRouter = require('./Routes/userRoutes');
 const AppError = require('./utils/appError');
 const errorController = require('./Controllers/errorController');
-// const PostController = require('./Controllers/PostController');
+const AuthController = require('./Controllers/AuthController');
+
 
 dotenv.config({path: './.env'});
 
@@ -23,12 +24,7 @@ app.use((req,res,next) => {
    next();
 });
  
-app.get('/',(req,res) => {
-   
-    res.status(200).send("this is from express");
-});
-
- 
+//  app.post('/signup',AuthController.signup);
  app.use('/api/v1/posts',postRouter);
  app.use('/api/v1/users',userRouter);
 
