@@ -1,4 +1,10 @@
-module.exports = (err,req,res,next) => {
+const AppError = require("../utils/appError");
+
+const handleDBCastError = (err) => {
+   const message = `Invalid ${err.path}: ${err.value}`;
+   new AppError(message,400);
+}
+ module.exports = (err,req,res,next) => {
 
     console.log(err.stack);
      err.statusCode = err.statusCode || 500;
@@ -30,8 +36,13 @@ module.exports = (err,req,res,next) => {
          stack: err.stack 
      });  
      
-             next();
+         next();
      } else if(process.env.NODE_ENV === 'production'){
-       sendErrorProduction(err,res);
+     
+     let error = { ...err };
+     
+     if(error.name === 'CastError') error = handleDBCastEroro(error)
+     
+       sendErrorProduction(error,res);
   }
 }

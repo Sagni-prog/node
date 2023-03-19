@@ -72,7 +72,7 @@ const catchAsync = fn => {
       
  } catch (error) {
     
-     next()
+     next(error)
    }
     
  }
