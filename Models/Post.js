@@ -48,30 +48,6 @@ const PostSchema = mongoose.Schema({
      next();
  }); 
  
- PostSchema.pre('save',function(next){
-    console.log("this is the document middleware: ",this);
-    next()
- })
- 
- PostSchema.pre('find',function(next){
-    
-    console.log("this is the query middleware: ",this);
-    next();
-   
- });
- 
- PostSchema.pre('find', function(next){
-    $post = this.find({ title: {$ne: "test document middleware"}});
-    
-    console.log($post);
-   
-   next();
- });
- 
- PostSchema.pre('aggregate',function(next){
-   console.log("this is the aggregate middlewarw: ",this);
-   next()
- });
 
 const Post = mongoose.model("Post",PostSchema);
 
