@@ -3,6 +3,13 @@ const Post = require('./../Models/Post');
 const AppError = require('./../utils/appError');
 
 
+
+
+const catchAsync = fn => {
+    return (req,res,next) => {
+      fn(req,res,next).catch(next)
+    }
+}
   exports.create = async (req,res) => {
   
   try {
@@ -53,7 +60,7 @@ const AppError = require('./../utils/appError');
        const post = await Post.findById(id);
        
        if(!post){
-          return next(new AppError('No Post found with this I',404));
+          return  next(new AppError('No Post found with this I',404));
        }
        
        res.status(200).json({
@@ -62,11 +69,14 @@ const AppError = require('./../utils/appError');
               post
            }
        });
+      
  } catch (error) {
-   return next(new AppError('No Post found with this I',404));
+    
+     next()
    }
     
  }
+
   
    exports.update = async(req,res) => {
    
