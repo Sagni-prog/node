@@ -120,18 +120,18 @@ exports.protect = async(req,res,next) => {
     next();
 }
 
-exports.authorize = (req,res,next) => {
-  
-         if(!(req.user.role === 'user')){
+exports.authorize = (role) => {
+     return (req,res,next) => {
+         if(!(req.user.role === role)){
          
-         console.log("the user is not authorized to perform this function")
+         console.log(`the user is not authorized to perform this function your role is: ${role}`)
              return next(
                     new AppError('Anuthorized',401)
              ); 
          }
          
-         console.log("user is authorized");
+         console.log(`user is authorized you have: ${role} role`);
          
          next();
-   
+      }
 }
