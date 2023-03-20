@@ -78,6 +78,8 @@ UserSchema.methods.changedPasswordAfter = async function(JWTTimestamp){
          .createHash('sha256')
          .update(resetToken)
          .digest('hex');
+         
+         console.log(resetToken," : ",this.passwordResetToken);
       
       this.passwordChanged_at = Date.now() + 10 * 60 *1000;
       
