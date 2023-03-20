@@ -93,7 +93,7 @@ exports.protect = async(req,res,next) => {
   
 
   const currentUser = await User.findById(decoded.id);
-  if(!user){
+  if(!currentUser){
      return(
          new AppError(
              "No User of this credential found",
@@ -106,7 +106,7 @@ exports.protect = async(req,res,next) => {
   
  
   
-  if(await user.changedPasswordAfter(decoded.iat)){
+  if(await currentUser.changedPasswordAfter(decoded.iat)){
       return next(
                 new AppError(
                        "You have changed your password",
@@ -120,14 +120,18 @@ exports.protect = async(req,res,next) => {
     next();
 }
 
-exports.authorize = (...roles) => {
-   return (req,res,next) => {
-         if(!roles.includes(req.user.role)){
+exports.authorize = (req,res,next) => {
+  
+         if(!(req.user.role === 'user')){
+         
+         console.log("the user is not authorized to perform this function")
              return next(
                     new AppError('Anuthorized',401)
-             );
+             ); 
          }
          
+         console.log("user is authorized");
+         
          next();
-   }
+   
 }
