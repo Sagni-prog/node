@@ -124,14 +124,22 @@ exports.authorize = (role) => {
      return (req,res,next) => {
          if(!(req.user.role === role)){
          
-         console.log(`the user is not authorized to perform this function your role is: ${role}`)
+         console.log(`the user is not authorized to perform this function your role is: ${req.user.role} but you need to have the: ${role}`)
              return next(
                     new AppError('Anuthorized',401)
              ); 
          }
          
-         console.log(`user is authorized you have: ${role} role`);
+         console.log(`user is authorized you have: ${req.user.role} role`);
          
          next();
       }
+}
+
+exports.forgetPassword = (req,res,next) => {
+    
+    const user = User.findOne({ email: req.body.email });
+    if(!user){
+         return next(new AppError('No user with this email',404))
+    }
 }
