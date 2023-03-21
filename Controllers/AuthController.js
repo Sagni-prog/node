@@ -136,15 +136,21 @@ exports.authorize = (role) => {
       }
 }
 
-exports.forgetPassword = async(req,res,next) => {
-    
+exports.forgetPassword = async (req,res,next) => {
+ 
     const user = await User.findOne({ email: req.body.email });
+    
+  
     if(!user){
          return next(new AppError('No user with this email',404))
     }
     
-    const resetToken = user.generatePasswordResetToken();
+    const resetToken = await user.createPasswordResetToken();
+    
+    res.json({
+       token: resetToken
+    })
      
-     console.log('somewhat: ',resetToken);
+    //  console.log('somewhat: ',resetToken);
     next();
 }

@@ -55,6 +55,7 @@ UserSchema.pre('save',async function(next){
 UserSchema.methods.authenticate = async function(password,userPassword){
    return await bcrypt.compare(password,userPassword);
 }
+
 UserSchema.methods.changedPasswordAfter = async function(JWTTimestamp){
           if(this.passwordChanged_at){
               const changedAtTimestamp = parseInt(
@@ -70,20 +71,20 @@ UserSchema.methods.changedPasswordAfter = async function(JWTTimestamp){
          return false;
    }
    
-   UserSchema.methods.generatePasswordResetToken = function(){
+   UserSchema.methods.createPasswordResetToken = async function(){
      
-       const resetToken = crypto.randomBytes(32).toString('hex');
+       const resetToken = await crypto.randomBytes(32).toString('hex');
        
-      this.passwordResetToken = crypto
+      this.passwordResetToken = await crypto
          .createHash('sha256')
          .update(resetToken)
          .digest('hex');
          
-         console.log(resetToken," : ",this.passwordResetToken);
+         // console.log(resetToken," : ",this.passwordResetToken);
       
-      this.passwordChanged_at = Date.now() + 10 * 60 *1000;
+      // this.passwordChanged_at = Date.now() + 10 * 60 *1000;
       
-      return resetToken;
+      return await resetToken;
        
    }
 
