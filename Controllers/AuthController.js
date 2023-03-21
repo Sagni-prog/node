@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { promisify } = require('util');
+const crypto = require('crypto')
 const User = require('./../Models/User');
 const AppError = require('./../utils/appError');
 const SendEmail = require('./../Mails/ResetPasswordMail');
@@ -151,13 +152,53 @@ exports.forgetPassword = async (req,res) => {
     const resetToken = await user.createPasswordResetToken();
     user.save({ validateBeforeSave: false});
     
-    await SendEmail({
-       subject: "this is test email"
+    const protocol = req.protocol;
+    const host = req.get('host');
+    
+    
+    const resetURL = `${protocol}://${host}/api/v1/users/reset-password/${resetToken}`
+    
+    const message = `Click this link ${resetURL} to reset your password`;
+   await SendEmail({
+       subject: "this is test email",
+       message
     });
+    
     
     res.status(200).json({
        status: 'success',
-       message: 'Token sent to your email, check your email please!'
+       message: 'Token sent to your email, check your email please!',
+     
     })
  
+}
+
+exports.resetPassword = async (req,res,next) => {
+
+   const hashedToken = crypto
+           .createHash('sha256')
+           .update(req.params.token)
+           .digest('hex');
+           
+  const user = await User.findOne({
+              passwordResetToken: hashedToken,
+              passwordResetTokenExpires_at: {$gt: Date.now()}
+  });
+  
+  if(!user){
+       return next(new AppError('Invalid token',400))
+  }
+  
+  user.password = req.body.password;
+  user.passwordConfirm = req.body.passwordConfirm;
+  user.passwordResetToken = undefined;
+  user.passwordResetTokenExpires_at = undefined;
+  await user.save();
+  
+  const token = generateToken(user._id);
+  
+   res.status(200).json({
+        status: 'sucess',
+        token
+  })
 }

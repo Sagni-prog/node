@@ -27,7 +27,8 @@ app.use((req,res,next) => {
 
  app.use('/api/v1/posts',postRouter);
  app.use('/api/v1/users',userRouter);
- app.post('/api/v1/forget-password',AuthController.forgetPassword)
+ app.post('/api/v1/forget-password',AuthController.forgetPassword);
+ app.patch('/api/v1/users/reset-password/:token',AuthController.resetPassword)
 
    
 app.all('*',(req,res,next) => {

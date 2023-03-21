@@ -22,10 +22,12 @@ const transport = nodemailer.createTransport({
      from: `Sagni Alemayehu ${process.env.EMAIL_USERNAME}`,
      to: process.env.EMAIL_USERNAME,
      subject: options.subject,
-     text: "hello this is the test email for nodemailer, test tls + security"
+     text: options.message
    }
    
     await transport.sendMail(mailOPtions);
 }
+
+
 
 module.exports = sendEmail;
