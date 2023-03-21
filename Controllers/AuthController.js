@@ -16,6 +16,8 @@ exports.index = async(req,res,next) => {
           users
        }
     });
+    
+    next()
 }
 exports.signup = async(req,res) => {
   
@@ -146,11 +148,11 @@ exports.forgetPassword = async (req,res,next) => {
     }
     
     const resetToken = await user.createPasswordResetToken();
+    user.save({ validateBeforeSave: false });
     
     res.json({
        token: resetToken
     })
-     
-    //  console.log('somewhat: ',resetToken);
+
     next();
 }
