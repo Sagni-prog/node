@@ -159,6 +159,5 @@ exports.forgetPassword = async (req,res) => {
        status: 'success',
        message: 'Token sent to your email, check your email please!'
     })
-
-    
+ 
 }

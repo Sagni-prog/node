@@ -1,4 +1,4 @@
-// const nodemailer = require('nodemailer');
+
 const nodemailer = require('nodemailer');
 
 const sendEmail = async (options) => {
@@ -6,6 +6,11 @@ const transport = nodemailer.createTransport({
 
     host: process.env.EMAIL_HOST,
     port: process.env.EMAIL_PORT,
+    secure: true,
+    tls: {
+        rejectUnauthorized: true,
+        minVersion: "TLSv1.2"
+    },
     auth: {
         user: process.env.EMAIL_USERNAME,
         pass: process.env.EMAIL_PASSWORD
@@ -15,13 +20,11 @@ const transport = nodemailer.createTransport({
    
    const mailOPtions = {
      from: `Sagni Alemayehu ${process.env.EMAIL_USERNAME}`,
-     to: 'natnael3370@gmail.com',
+     to: process.env.EMAIL_USERNAME,
      subject: options.subject,
-     text: "hello this is the test email for nodemailer, if you recieved the email please replay me to check"
+     text: "hello this is the test email for nodemailer, test tls + security"
    }
    
-//    await transport.sendil(mailOPtions);
-
     await transport.sendMail(mailOPtions);
 }
 
