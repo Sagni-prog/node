@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const { promisify } = require('util');
 const User = require('./../Models/User');
 const AppError = require('./../utils/appError');
+const SendEmail = require('./../Mails/ResetPasswordMail');
  
 const generateToken = id => {
     return jwt.sign({id: id}, process.env.JWT_SECRET,
@@ -138,7 +139,7 @@ exports.authorize = (role) => {
       }
 }
 
-exports.forgetPassword = async (req,res,next) => {
+exports.forgetPassword = async (req,res) => {
  
     const user = await User.findOne({ email: req.body.email });
     
@@ -148,11 +149,16 @@ exports.forgetPassword = async (req,res,next) => {
     }
     
     const resetToken = await user.createPasswordResetToken();
-    user.save({ validateBeforeSave: false });
+    user.save({ validateBeforeSave: false});
     
-    res.json({
-       token: resetToken
+    await SendEmail({
+       subject: "this is test email"
+    });
+    
+    res.status(200).json({
+       status: 'success',
+       message: 'Token sent to your email, check your email please!'
     })
 
-    next();
+    
 }
