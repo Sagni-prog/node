@@ -31,7 +31,7 @@ app.use((req,res,next) => {
  app.patch('/api/v1/users/reset-password/:token',AuthController.resetPassword);
  app.patch('/api/v1/users/update-password',AuthController.protect,AuthController.updatePassword);
  app.patch('/api/v1/users/update',AuthController.protect,AuthController.udateUser);
- app.patch('/api/v1/users/delete',AuthController.protect,AuthController.deleteUser);
+ app.delete('/api/v1/users/delete',AuthController.protect,AuthController.deleteUser);
 
    
 app.all('*',(req,res,next) => {
