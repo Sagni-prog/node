@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
 const rateLimit = require('express-rate-limit');
+const helmet = require('helmet');
 const postRouter = require('./Routes/postRoutes');
 const userRouter = require('./Routes/userRoutes');
 const AppError = require('./utils/appError');
@@ -12,6 +13,8 @@ const AuthController = require('./Controllers/AuthController');
 dotenv.config({path: './.env'});
 
 const app = express();
+
+app.use(helmet());
 
 app.use(express.json());
 
