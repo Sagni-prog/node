@@ -3,12 +3,14 @@ const morgan = require('morgan');
 const dotenv = require('dotenv');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
+const mongoSanitize = require('express-mongo-sanitize');
+const xssClean = require('xss-clean');
 const postRouter = require('./Routes/postRoutes');
 const userRouter = require('./Routes/userRoutes');
 const AppError = require('./utils/appError');
 const errorController = require('./Controllers/errorController');
 const AuthController = require('./Controllers/AuthController');
-
+ 
 
 dotenv.config({path: './.env'});
 
@@ -29,8 +31,12 @@ const limit = rateLimit({
 });
 
 app.use('/api',limit);
-app.use(express.static(`${__dirname}/public`));
+app.use(mongoSanitize());
+app.use(xssClean());
 
+
+app.use(express.static(`${__dirname}/public`));
+ 
 app.use((req,res,next) => {
    console.log("middleware");
    next();
