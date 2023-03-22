@@ -52,6 +52,12 @@ UserSchema.pre('save',async function(next){
       
 });
 
+UserSchema.pre('save',function(next){
+   if(!this.isModified('password') || this.isNew) return next();
+   
+   this.passwordChanged_at = Date.now() - 1000;
+    next();
+})
 UserSchema.methods.authenticate = async function(password,userPassword){
    return await bcrypt.compare(password,userPassword);
 }
@@ -79,9 +85,7 @@ UserSchema.methods.changedPasswordAfter = async function(JWTTimestamp){
          .createHash('sha256')
          .update(resetToken)
          .digest('hex');
-         
-         // console.log(resetToken," : ",this.passwordResetToken);
-      
+               
       this.passwordResetTokenExpires_at = Date.now() + 10 * 60 *1000;
       
       return resetToken;

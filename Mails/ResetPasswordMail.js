@@ -20,14 +20,14 @@ const transport = nodemailer.createTransport({
    
    const mailOPtions = {
      from: `Sagni Alemayehu ${process.env.EMAIL_USERNAME}`,
-     to: process.env.EMAIL_USERNAME,
+    //  to: 'natnaelgetcho@gmail.com',
+    // to: 'natnaeln4d@gmail.com',
+    to: 'sagnialemayehu69@gmail.com',
      subject: options.subject,
      text: options.message
    }
    
     await transport.sendMail(mailOPtions);
 }
-
-
 
 module.exports = sendEmail;

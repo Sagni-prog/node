@@ -158,7 +158,7 @@ exports.forgetPassword = async (req,res) => {
     
     const resetURL = `${protocol}://${host}/api/v1/users/reset-password/${resetToken}`
     
-    const message = `Click this link ${resetURL} to reset your password`;
+    const message = `Click this link ${resetURL} to reset your password, just send vai mailtrap just nows!`;
    await SendEmail({
        subject: "this is test email",
        message
@@ -201,4 +201,24 @@ exports.resetPassword = async (req,res,next) => {
         status: 'sucess',
         token
   })
+}
+
+exports.updatePassword = async (req,res,next) => {
+   
+    const user = await User.findById(req.user.id).select('+password');
+    if(!await user.authenticate(req.body.currentPassword,user.password)){
+       return next(new AppError('your current password is wrong',401));
+    }
+    
+    user.password = req.body.password;
+    user.passwordConfirm = req.body.passwordConfirm;
+    await user.save();
+    
+    const token = generateToken(user._id);
+    
+    res.status(200).json({
+       status: 'sucess',
+       token
+    });
+    
 }
