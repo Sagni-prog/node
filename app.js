@@ -30,6 +30,7 @@ app.use((req,res,next) => {
  app.post('/api/v1/forget-password',AuthController.forgetPassword);
  app.patch('/api/v1/users/reset-password/:token',AuthController.resetPassword)
  app.patch('/api/v1/users/update-password',AuthController.protect,AuthController.updatePassword)
+ app.patch('/api/v1/users/update',AuthController.protect,AuthController.udateUser)
 
    
 app.all('*',(req,res,next) => {
