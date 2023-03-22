@@ -239,7 +239,8 @@ exports.udateUser = async (req,res,next) => {
               new AppError('You cant update your password here!',400)
       );
    }
-   
+    
+    // filtering only fields to be updated
    const filterBody = filterObj(req.body,'name','email');
    
    console.log(filterBody);
@@ -254,4 +255,16 @@ exports.udateUser = async (req,res,next) => {
               user
        }
    })
+}
+
+exports.deleteUser = async (req,res,next) => {
+     const user = await User.findByIdAndUpdate(req.user._id,{ active: false });
+     
+     res.status(204).json({
+        status: 'success',
+        data: {  
+            user
+        }
+     });
+     
 }
