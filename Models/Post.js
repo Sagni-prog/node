@@ -38,7 +38,17 @@ const PostSchema = mongoose.Schema({
                type: Number
             }
         }
-     ],
+     ], 
+},
+  {
+    toJSON: { virtual: true },
+    toObject: { virtual: true }
+  },);
+
+PostSchema.virtual('comments',{
+    ref: 'Comment',
+    foreignField: 'post',
+    localField: 'id'
 });
 
  PostSchema.pre('save',function(next){

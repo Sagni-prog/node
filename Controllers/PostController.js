@@ -17,19 +17,21 @@ const catchAsync = fn => {
   
   try {
    
-         const post = await Post.create({
-                        title : req.body.title,
-                        post_body: req.body.post_body, 
-                        post_photo: [
-                           {
-                              photo_path:  req.body.post_photo[0].photo_path,
-                              photo_url: req.body.post_photo[0].photo_url,
-                              photo_width: req.body.post_photo[0].photo_width,
-                              photo_height: req.body.post_photo[0].photo_height
-                           }
-                        ]
-                     }
-         );
+         // const post = await Post.create({
+         //                title : req.body.title,
+         //                post_body: req.body.post_body, 
+         //                post_photo: [
+         //                   {
+         //                      photo_path:  req.body.post_photo[0].photo_path,
+         //                      photo_url: req.body.post_photo[0].photo_url,
+         //                      photo_width: req.body.post_photo[0].photo_width,
+         //                      photo_height: req.body.post_photo[0].photo_height
+         //                   }
+         //                ]
+         //             }
+         // );
+         
+         const post = await Post.create(req.body);
        
        res.status(201).json({
           status: "success",
