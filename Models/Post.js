@@ -6,8 +6,7 @@ const PostSchema = mongoose.Schema({
 
      title: {
       type: String,
-      required: [true,"Title is required"],
-      // validate: validator.isAlpha
+      required: [true,"Title is required"]
      },
      post_body: {
          type: String,
