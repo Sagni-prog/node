@@ -25,12 +25,10 @@ const CommentSchema = mongoose.Schema({
 
 CommentSchema.methods.commentUpdatedAt = function(){
    this.updatad_at = Date.now() - 1000;
-   next();
 }
 
 CommentSchema.methods.commentDeletedAt = function(){
    this.updatad_at = Date.now() - 1000;
-   next();
 }
 
 const Comment = mongoose.model('Comment',CommentSchema);

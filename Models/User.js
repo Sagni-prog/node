@@ -68,14 +68,12 @@ UserSchema.pre('save',function(next){
     next();
 });
 
-UserSchema.methods.useDeletedAt = function(next){
+UserSchema.methods.useDeletedAt = function(){
    this.deleted_at = Date.now() - 1000; 
-   next();
 };
 
-UserSchema.methods.useUpdatedAt = function(next){
+UserSchema.methods.useUpdatedAt = function(){
    this.updated_at = Date.now() - 1000; 
-   next();
 };
 
 

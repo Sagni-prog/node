@@ -13,14 +13,12 @@ const CatagorySchema = mongoose.Schema({
      deleted_at: Date
 });
 
-PostSchema.methods.catagoryUpdatedAt = function(){
+CatagorySchema.methods.catagoryUpdatedAt = function(){
     this.updatad_at = Date.now() - 1000;
-    next();
  }
  
- PostSchema.methods.catagoryDeletedAt = function(){
+ CatagorySchema.methods.catagoryDeletedAt = function(){
     this.updatad_at = Date.now() - 1000;
-    next();
  }
 
 const Catagory = mongoose.model('Catagory',CatagorySchema);

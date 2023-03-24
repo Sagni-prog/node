@@ -18,14 +18,12 @@ const ReplaySchema = mongoose.Schema({
    deleted_at: Date
 });
 
-PostSchema.methods.replayUpdatedAt = function(){
+ReplaySchema.methods.replayUpdatedAt = function(){
    this.updatad_at = Date.now() - 1000;
-   next();
 }
 
-PostSchema.methods.replayDeletedAt = function(){
+ReplaySchema.methods.replayDeletedAt = function(){
    this.updatad_at = Date.now() - 1000;
-   next();
 }
 
 const Replay = mongoose.model('Replay',ReplaySchema);
