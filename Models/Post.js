@@ -55,7 +55,7 @@ const PostSchema = mongoose.Schema({
             default: Date.now()
   },
   updatad_at: Date,
-  deleted_at: String
+  deleted_at: Date
 },
   {
     toJSON: { virtual: true },
@@ -76,12 +76,10 @@ const PostSchema = mongoose.Schema({
  
  PostSchema.methods.postUpdatedAt = function(){
     this.updatad_at = Date.now();
-   //  next();
  }
  
- PostSchema.methods.postDeletedAt = function(next){
-    this.updatad_at = Date.now() - 1000;
-    next();
+ PostSchema.methods.postDeletedAt = function(){
+    this.deleted_at = Date.now();
  }
 //  PostSchema.pre('save',async function(next){
  

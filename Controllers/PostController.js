@@ -40,7 +40,7 @@ const catchAsync = fn => {
     exports.index = async (req,res) => {
     
     try {
-         const posts = await Post.find();
+         const posts = await Post.find({deleted_at: undefined});
          
          res.status(200).json({
                status: "success",
@@ -112,14 +112,15 @@ const catchAsync = fn => {
 exports.destroy = async(req,res) => {
    
    try {
-        const posts = await Post.findByIdAndDelete(req.params.id);
+        const post = await Post.findById(req.params.id);
         
-        posts.postDeletedAt(next);
+        post.postDeletedAt();
+        post.save();
           
         res.status(204).json({
             status: "success",
             data: {
-               posts
+               post
             }
         });
    } catch (error) {
