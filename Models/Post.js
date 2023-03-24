@@ -16,11 +16,6 @@ const PostSchema = mongoose.Schema({
      slug: {
          type: String
      },
-     created_at: {
-         type: Date,
-         required: [true],
-         default: Date.now()
-     },
      post_photo: [
         {   
             photo_name: {
@@ -52,7 +47,15 @@ const PostSchema = mongoose.Schema({
             type: mongoose.Schema.ObjectId,
             ref: 'Like'
         }
-     ]
+     ], 
+     
+     created_at: {
+            type: Date,
+            required: [true],
+            default: Date.now()
+  },
+  updatad_at: Date,
+  deleted_at: Date
 },
   {
     toJSON: { virtual: true },

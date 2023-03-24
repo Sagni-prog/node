@@ -9,7 +9,12 @@ const LikeSchema = mongoose.Schema({
     post: {
          type: mongoose.Schema.ObjectId,
          ref: 'Post'
-    }
+    },created_at: {
+        type:Date,
+        default: Date.now()
+     },
+     updated_at: Date,
+     deleted_at: Date
 });
 
 const Like = mongoose.model('Like',LikeSchema);

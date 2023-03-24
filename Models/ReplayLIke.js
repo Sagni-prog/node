@@ -9,7 +9,13 @@ const ReplayLikeSchema = mongoose.Schema({
      replay: {
         type: mongoose.Schema.ObjectId,
         ref: 'Replay'
-     }
+     },
+     created_at: {
+        type:Date,
+        default: Date.now()
+     },
+     updated_at: Date,
+     deleted_at: Date
 });
 
 const ReplayLike = mongoose.model('ReplayLike',ReplayLikeSchema);
