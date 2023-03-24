@@ -39,17 +39,29 @@ const PostSchema = mongoose.Schema({
             }
         }
      ], 
+     author: [
+          {
+            type: mongoose.Schema.ObjectId,
+            ref: 'User'
+          }
+     ],
+     comments: [
+        {
+             type: mongoose.Schema.ObjectId,
+             ref: 'Comment'
+        }
+     ]
 },
   {
     toJSON: { virtual: true },
     toObject: { virtual: true }
-  },);
+  });
 
-PostSchema.virtual('comments',{
-    ref: 'Comment',
-    foreignField: 'post',
-    localField: 'id'
-});
+//   PostSchema.virtual('comments',{
+//     ref: 'Comment',
+//     foreignField: 'post',
+//     localField: '_id'
+// });
 
  PostSchema.pre('save',function(next){
      this.slug = slugify(this.title,{lower: true});
@@ -57,7 +69,6 @@ PostSchema.virtual('comments',{
      next();
  }); 
  
-
 const Post = mongoose.model("Post",PostSchema);
 
 module.exports = Post;
