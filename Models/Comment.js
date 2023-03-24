@@ -10,25 +10,21 @@ const CommentSchema = mongoose.Schema({
       ref: 'Post',
       required: true
   },
-  author: {
-     type: mongoose.Schema.ObjectId,
-     ref: 'User',
-     required: true
-  },
+  author: Object,
   created_at: {
      type: Date,
      default: Date.now()
  },
-  update_at: Date,
+  updated_at: Date,
   deleted_at: Date
 });
 
 CommentSchema.methods.commentUpdatedAt = function(){
-   this.updatad_at = Date.now() - 1000;
+   this.updated_at = Date.now();
 }
 
 CommentSchema.methods.commentDeletedAt = function(){
-   this.updatad_at = Date.now() - 1000;
+   this.deleted_at = Date.now() - 1000;
 }
 
 const Comment = mongoose.model('Comment',CommentSchema);

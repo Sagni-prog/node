@@ -2,7 +2,7 @@ const { findByIdAndUpdate } = require('./../Models/Post');
 const Post = require('./../Models/Post'); 
 const User = require('./../Models/User'); 
 const AppError = require('./../utils/appError');
-const FieldFilter = require('./../utils/FieldFilters');
+const FieldFilter = require('./../utils/FieldFilter');
 
 
 const catchAsync = fn => {
@@ -15,7 +15,7 @@ const catchAsync = fn => {
   try {
   
 
-     const fields = FieldFilter.postFilter(req.body,'title','post_body','post_photo');
+     const fields = FieldFilter(req.body,'title','post_body','post_photo');
      let newObj = fields;
      newObj = {...newObj, author: req.user}
          console.log("new ",newObj)

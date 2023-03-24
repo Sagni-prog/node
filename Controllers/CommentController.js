@@ -1,28 +1,15 @@
 const AppError = require('../utils/appError');
 const Comment = require('./../Models/Comment');
 const Post = require('./../Models/Post');
+const FieldFilter = require('./../utils/FieldFilter');
 
 
-exports.isUserOwnsTheComment = async (req,res,next) => {
 
-try {
-   const comment = await Comment.findOne(req.params.id);
-   if(!req.user._id !== comment.author){
-       return next(
-               new AppError('you cant delete others post',401)
-       )
-   }
-   await next();
-   
-} catch (error) {
-    next(error);
-  } 
-}
 exports.index = async (req,res,next) => {
 
 // const posts = await Post.find().populate('comments');
 try {
-   const comments = await Comment.find().populate({
+   const comments = await Comment.find({ deleted_at: undefined }).populate({
       path: 'post',
       select: 'title post_body'
    }).populate({
@@ -42,6 +29,11 @@ try {
 
 exports.create = async (req,res,next) => {
    try {
+   
+      const fields = FieldFilter(req.body,'comment_body','post');
+      let newObj = fields;
+      newObj = {...newObj, author: req.user}
+          
       const post = await Post.findById(req.body.post);
       
       if(!post){
@@ -49,7 +41,7 @@ exports.create = async (req,res,next) => {
                 new AppError('Comment without post is impossible',404)
           );
       }
-      const comment = await Comment.create(req.body);
+      const comment = await Comment.create(newObj);
       post.comments[post.comments.length] = comment._id;
       post.save();
       
@@ -69,12 +61,16 @@ exports.create = async (req,res,next) => {
 
 exports.update = async (req,res,next) => {
    try {
-       const comment = await Comment.findByIdAndUpdate(req.params.id,req.body,{
+   
+      const fields = FieldFilter(req.body,'comment_body');
+      
+       const comment = await Comment.findByIdAndUpdate(req.params.id,fields,{
           new: true,
           runValidators: true
        });
        
       comment.commentUpdatedAt();
+      comment.save();
        
        res.status(200).json({
            statud: 'secess',
@@ -94,6 +90,7 @@ exports.delete = async (req,res,next) => {
            return next(new AppError('Comment with this Id not found',404));
        }
        comment.commentDeletedAt();
+       comment.save();
        
        res.status(200).json({
           status: 'sucess',
