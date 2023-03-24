@@ -9,7 +9,8 @@ const LikeSchema = mongoose.Schema({
     post: {
          type: mongoose.Schema.ObjectId,
          ref: 'Post'
-    },created_at: {
+    },
+    created_at: {
         type:Date,
         default: Date.now()
      },

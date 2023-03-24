@@ -23,12 +23,12 @@ const CommentSchema = mongoose.Schema({
   deleted_at: Date
 });
 
-PostSchema.methods.commentUpdatedAt = function(){
+CommentSchema.methods.commentUpdatedAt = function(){
    this.updatad_at = Date.now() - 1000;
    next();
 }
 
-PostSchema.methods.commentDeletedAt = function(){
+CommentSchema.methods.commentDeletedAt = function(){
    this.updatad_at = Date.now() - 1000;
    next();
 }

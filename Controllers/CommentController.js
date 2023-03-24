@@ -68,9 +68,40 @@ exports.create = async (req,res,next) => {
 }
 
 exports.update = async (req,res,next) => {
-  
+   try {
+       const comment = await Comment.findByIdAndUpdate(req.params.id,req.body,{
+          new: true,
+          runValidators: true
+       });
+       
+      comment.commentUpdatedAt();
+       
+       res.status(200).json({
+           statud: 'secess',
+           data: {
+              comment     
+           }
+       })
+   } catch (error) {
+      next(error);
+   }
 }
 
 exports.delete = async (req,res,next) => {
-  
+   try {
+       const comment = await Comment.findById(req.params.id);
+       if(!comment){
+           return next(new AppError('Comment with this Id not found',404));
+       }
+       comment.commentDeletedAt();
+       
+       res.status(200).json({
+          status: 'sucess',
+          data: {
+             comment
+          }
+       })
+   } catch (error) {
+      next(error);
+   }
 }
