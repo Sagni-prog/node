@@ -5,10 +5,6 @@ const AppError = require('./../utils/appError');
 
 
 
-// {
-//    title : req.body.title,
-//    post_body: req.body.post_body,   
-// }
 
 const catchAsync = fn => {
     return (req,res,next) => {
@@ -18,27 +14,12 @@ const catchAsync = fn => {
   exports.create = async (req,res) => {
   
   try {
-   
-         // const post = await Post.create({
-         //                title : req.body.title,
-         //                post_body: req.body.post_body, 
-         //                post_photo: [
-         //                   {
-         //                      photo_path:  req.body.post_photo[0].photo_path,
-         //                      photo_url: req.body.post_photo[0].photo_url,
-         //                      photo_width: req.body.post_photo[0].photo_width,
-         //                      photo_height: req.body.post_photo[0].photo_height
-         //                   }
-         //                ]
-         //             }
-         // );
-         
-         const user = await User.findById(req.body.author);
          
          const post = await Post.create({
                       title : req.body.title,
                       post_body: req.body.post_body,
-                      author: user
+                      post_photo: req.body.post_photo,
+                      author: req.user
          });
        
        res.status(201).json({
