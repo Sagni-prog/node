@@ -64,7 +64,7 @@ const catchAsync = fn => {
        const post = await Post.findById(id);
        
        if(!post){
-          return  next(new AppError('No Post found with this I',404));
+          return next(new AppError('No Post found with this I',404));
        }
        
        res.status(200).json({
@@ -82,10 +82,10 @@ const catchAsync = fn => {
  }
 
 
-   exports.update = async(req,res) => {
+   exports.update = async(req,res,next) => {
    
    try {
-    
+     
       const posts = await Post.findByIdAndUpdate(
                 req.params.id,
                 req.body,
@@ -95,6 +95,7 @@ const catchAsync = fn => {
       });
       
       posts.postUpdatedAt();
+      posts.save();
    
    res.status(200).json({
          status: "success",
@@ -103,10 +104,7 @@ const catchAsync = fn => {
          }
    });
    } catch (error) {
-       res.status(400).json({
-            status: "fail",
-            message: error
-       });
+       next(error);
    }   
 }
 
@@ -116,7 +114,7 @@ exports.destroy = async(req,res) => {
    try {
         const posts = await Post.findByIdAndDelete(req.params.id);
         
-        posts.postDeletedAt();
+        posts.postDeletedAt(next);
           
         res.status(204).json({
             status: "success",

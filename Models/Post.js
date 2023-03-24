@@ -75,11 +75,11 @@ const PostSchema = mongoose.Schema({
  }); 
  
  PostSchema.methods.postUpdatedAt = function(){
-    this.updatad_at = Date.now() - 1000;
-    next();
+    this.updatad_at = Date.now();
+   //  next();
  }
  
- PostSchema.methods.postDeletedAt = function(){
+ PostSchema.methods.postDeletedAt = function(next){
     this.updatad_at = Date.now() - 1000;
     next();
  }
