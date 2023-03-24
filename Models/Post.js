@@ -55,7 +55,7 @@ const PostSchema = mongoose.Schema({
             default: Date.now()
   },
   updatad_at: Date,
-  deleted_at: Date
+  deleted_at: String
 },
   {
     toJSON: { virtual: true },

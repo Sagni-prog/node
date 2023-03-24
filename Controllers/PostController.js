@@ -2,8 +2,7 @@ const { findByIdAndUpdate } = require('./../Models/Post');
 const Post = require('./../Models/Post'); 
 const User = require('./../Models/User'); 
 const AppError = require('./../utils/appError');
-
-
+const FieldFilter = require('./../utils/FieldFilters');
 
 
 const catchAsync = fn => {
@@ -14,13 +13,15 @@ const catchAsync = fn => {
   exports.create = async (req,res) => {
   
   try {
+  
+
+     const fields = FieldFilter.postFilter(req.body,'title','post_body','post_photo');
+     let newObj = fields;
+     newObj = {...newObj, author: req.user}
+         console.log("new ",newObj)
          
-         const post = await Post.create({
-                      title : req.body.title,
-                      post_body: req.body.post_body,
-                      post_photo: req.body.post_photo,
-                      author: req.user
-         });
+         const post = await Post.create(newObj);
+      
        
        res.status(201).json({
           status: "success",
@@ -80,7 +81,7 @@ const catchAsync = fn => {
     
  }
 
-  
+
    exports.update = async(req,res) => {
    
    try {
