@@ -5,19 +5,23 @@ const Post = require('./../Models/Post');
 exports.index = async (req,res,next) => {
 
 // const posts = await Post.find().populate('comments');
-    const comments = await Comment.find().populate({
-       path: 'post',
-       select: 'title post_body'
-    }).populate({
-       path: 'author'
-    });
-    
-    res.status(200).json({
-        status: 'sucess',
-        data: {
-           comments
-        }
-    })
+try {
+   const comments = await Comment.find().populate({
+      path: 'post',
+      select: 'title post_body'
+   }).populate({
+      path: 'author'
+   });
+   
+   res.status(200).json({
+       status: 'sucess',
+       data: {
+          comments
+       }
+   })
+} catch (error) {
+    next(error);
+  }  
 }
 
 exports.create = async (req,res,next) => {
