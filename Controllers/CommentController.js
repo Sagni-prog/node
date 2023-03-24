@@ -2,6 +2,22 @@ const AppError = require('../utils/appError');
 const Comment = require('./../Models/Comment');
 const Post = require('./../Models/Post');
 
+
+exports.isUserOwnsTheComment = async (req,res,next) => {
+
+try {
+   const comment = await Comment.findOne(req.params.id);
+   if(!req.user._id !== comment.author){
+       return next(
+               new AppError('you cant delete others post',401)
+       )
+   }
+   await next();
+   
+} catch (error) {
+    next(error);
+  } 
+}
 exports.index = async (req,res,next) => {
 
 // const posts = await Post.find().populate('comments');
@@ -52,9 +68,9 @@ exports.create = async (req,res,next) => {
 }
 
 exports.update = async (req,res,next) => {
-
+  
 }
 
 exports.delete = async (req,res,next) => {
-
+  
 }

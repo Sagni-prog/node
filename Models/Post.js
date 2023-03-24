@@ -73,6 +73,16 @@ const PostSchema = mongoose.Schema({
    
      next();
  }); 
+ 
+ PostSchema.methods.postUpdatedAt = function(){
+    this.updatad_at = Date.now() - 1000;
+    next();
+ }
+ 
+ PostSchema.methods.postDeletedAt = function(){
+    this.updatad_at = Date.now() - 1000;
+    next();
+ }
 //  PostSchema.pre('save',async function(next){
  
 //    const user = await User.findById(req.body.auther);

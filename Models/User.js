@@ -66,13 +66,25 @@ UserSchema.pre('save',function(next){
    
    this.passwordChanged_at = Date.now() - 1000;
     next();
-})
+});
+
+UserSchema.methods.useDeletedAt = function(next){
+   this.deleted_at = Date.now() - 1000; 
+   next();
+};
+
+UserSchema.methods.useUpdatedAt = function(next){
+   this.updated_at = Date.now() - 1000; 
+   next();
+};
+
+
 UserSchema.methods.authenticate = async function(password,userPassword){
    return await bcrypt.compare(password,userPassword);
 }
 
 UserSchema.methods.changedPasswordAfter = async function(JWTTimestamp){
-          if(this.passwordChanged_at){
+      if(this.passwordChanged_at){
               const changedAtTimestamp = parseInt(
                      this.passwordChanged_at.getTime() /1000,
                      10

@@ -111,6 +111,8 @@ const catchAsync = fn => {
                new: true,
                runValidators: true
       });
+      
+      posts.postUpdatedAt();
    
    res.status(200).json({
          status: "success",
@@ -131,6 +133,8 @@ exports.destroy = async(req,res) => {
    
    try {
         const posts = await Post.findByIdAndDelete(req.params.id);
+        
+        posts.postDeletedAt();
           
         res.status(204).json({
             status: "success",
