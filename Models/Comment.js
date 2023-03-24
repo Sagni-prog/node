@@ -23,6 +23,16 @@ const CommentSchema = mongoose.Schema({
   deleted_at: Date
 });
 
+PostSchema.methods.commentUpdatedAt = function(){
+   this.updatad_at = Date.now() - 1000;
+   next();
+}
+
+PostSchema.methods.commentDeletedAt = function(){
+   this.updatad_at = Date.now() - 1000;
+   next();
+}
+
 const Comment = mongoose.model('Comment',CommentSchema);
 
 module.exports = Comment;
