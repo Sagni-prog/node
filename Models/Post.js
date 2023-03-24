@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const slugify = require('slugify');
 const validator = require('validator');
+const User = require('./User');
 
 const PostSchema = mongoose.Schema({
 
@@ -39,12 +40,7 @@ const PostSchema = mongoose.Schema({
             }
         }
      ], 
-     author: [
-          {
-            type: mongoose.Schema.ObjectId,
-            ref: 'User'
-          }
-     ],
+     author: Object,
      comments: [
         {
              type: mongoose.Schema.ObjectId,
@@ -68,6 +64,12 @@ const PostSchema = mongoose.Schema({
    
      next();
  }); 
+//  PostSchema.pre('save',async function(next){
+ 
+//    const user = await User.findById(req.body.auther);
+//    this.author = user;
+//      next();
+//  }); 
  
 const Post = mongoose.model("Post",PostSchema);
 

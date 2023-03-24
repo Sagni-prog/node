@@ -43,5 +43,7 @@
     <li>Document Middlewares</li>
     <li>Query Middlewares</li>
     <li>Mongodb injection sanitization</li>
+    <li>Database modeling</li>
+    <li>Embedding and Referrancing(Parent, Child and two way)</li>
  </ol>
 

@@ -1,6 +1,8 @@
 const { findByIdAndUpdate } = require('./../Models/Post');
 const Post = require('./../Models/Post'); 
+const User = require('./../Models/User'); 
 const AppError = require('./../utils/appError');
+
 
 
 // {
@@ -31,7 +33,13 @@ const catchAsync = fn => {
          //             }
          // );
          
-         const post = await Post.create(req.body);
+         const user = await User.findById(req.body.author);
+         
+         const post = await Post.create({
+                      title : req.body.title,
+                      post_body: req.body.post_body,
+                      author: user
+         });
        
        res.status(201).json({
           status: "success",
@@ -42,7 +50,7 @@ const catchAsync = fn => {
   } catch (error) {
         res.status(400).json({
            status: "fail",
-           message: err
+           message: error
         });
       }       
   }
