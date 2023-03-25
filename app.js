@@ -8,6 +8,7 @@ const xssClean = require('xss-clean');
 const postRouter = require('./Routes/postRoutes');
 const userRouter = require('./Routes/userRoutes');
 const commentRouter = require('./Routes/commentRoutes');
+const likeRouter = require('./Routes/likeRoutes');
 const AppError = require('./utils/appError');
 const errorController = require('./Controllers/errorController');
 const AuthController = require('./Controllers/AuthController');
@@ -47,6 +48,7 @@ app.use((req,res,next) => {
  app.use('/api/v1/posts',postRouter);
  app.use('/api/v1/users',userRouter);
  app.use('/api/v1/comments',commentRouter);
+ app.use('/api/v1/likes',likeRouter);
 
    
 app.all('*',(req,res,next) => {

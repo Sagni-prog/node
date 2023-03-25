@@ -3,11 +3,8 @@ const Comment = require('./../Models/Comment');
 const Post = require('./../Models/Post');
 const FieldFilter = require('./../utils/FieldFilter');
 
-
-
 exports.index = async (req,res,next) => {
 
-// const posts = await Post.find().populate('comments');
 try {
    const comments = await Comment.find({ deleted_at: undefined }).populate({
       path: 'post',

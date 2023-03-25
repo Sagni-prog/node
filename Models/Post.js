@@ -56,11 +56,17 @@ const PostSchema = mongoose.Schema({
   },
   updatad_at: Date,
   deleted_at: Date
-},
-  {
-    toJSON: { virtual: true },
-    toObject: { virtual: true }
-  });
+});
+  
+//   PostSchema.virtual('comments', {
+//    ref: 'Comment', 
+//    localField: '_id', 
+//    foreignField: 'post', 
+// });
+
+// Set Object and Json property to true. Default is set to false
+// PostSchema.set('toObject', { virtuals: true });
+// PostSchema.set('toJSON', { virtuals: true });
 
 //   PostSchema.virtual('comments',{
 //     ref: 'Comment',

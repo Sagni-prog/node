@@ -6,10 +6,7 @@ const LikeSchema = mongoose.Schema({
         default: false
     },
     liker: Object,
-    post: {
-         type: mongoose.Schema.ObjectId,
-         ref: 'Post'
-    },
+    post: Object,
     created_at: {
         type:Date,
         default: Date.now()
