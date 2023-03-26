@@ -1,4 +1,5 @@
 const multer = require('multer');
+const sharp = require('sharp');
 
 const multerStorage = multer.diskStorage({
     destination: (req,file,cb) => {
@@ -9,6 +10,8 @@ const multerStorage = multer.diskStorage({
        cb(null,`post-${Date.now()}.${ext}`);
       }
    });
+
+   //  const multerStorage = multer.memoryStorage();
    
    const multerFilter = (req,file,cb) => {
     if(file.mimetype.startsWith('image')){
@@ -21,7 +24,19 @@ const multerStorage = multer.diskStorage({
  const upload = multer({ 
     storage: multerStorage,
     fileFilter: multerFilter
- });
+   });
+   
+exports.postPhoto = upload.single('photo');
+ exports.resizePostPhoto = async (req,res,next) => {
  
- const postPhoto = upload.single('photo');
- module.exports = postPhoto;
+ if(!req.file){ next() }
+    const ext = req.file.mimetype.split('/')[1]; 
+    req.file.filename = `post-${Date.now()}.jpeg`;
+    
+    await sharp(req.file.buffer)
+                     .resize(500,500)
+                     .toFormat('jpeg')
+                     .toFile(`public/img/posts`);
+               }
+ 
+//  module.exports = postPhoto;

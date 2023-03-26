@@ -1,4 +1,6 @@
 
+const { promisify } = require('util')
+const imageSize = promisify(require('image-size'))
 const { findByIdAndUpdate } = require('./../Models/Post');
 const Post = require('./../Models/Post'); 
 const User = require('./../Models/User'); 
@@ -14,16 +16,28 @@ const catchAsync = fn => {
   exports.create = async (req,res) => {
   
   try {
-  console.log(req.file.filename)
-  console.log(req.file.path)
- 
+     
+     
+    const dimension = await imageSize(req.file.path);
+    const width = dimension.width;
+    const height = dimension.height;
+    const photo_url = `${process.env.APP_URL}/${req.file.filename}`;
+    
+    console.log(req.file)
+    
     const fields = FieldFilter(req.body,'title','post_body','post_photo');
     if(req.file){ 
                fields.post_photo = {
                    photo_name: req.file.filename,
-                   photo_path: req.file.path
+                   photo_path: req.file.path,
+                   photo_width: width,
+                   photo_height: height,
+                   photo_url: photo_url
     };
    }
+   
+   
+
     let newObj = fields;
     newObj = {...newObj, author: req.user} 
     const post = await Post.create(newObj);
