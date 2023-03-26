@@ -65,15 +65,12 @@ exports.login = async(req,res,next) => {
      if(!email || !password){
          return next(new AppError("Please provide your email and password",400)); 
      }
-     
-     const user = await User.findOne({ email }).select('+password');
-     
+     const user = await User.findOne({ email }).select('+password');    
     if(!user || !(await user.authenticate(password,user.password))){
         return next(new AppError("Incorrect email or password",401))
     }
     
     const token = generateToken(user._id); 
-    
     const cookieOptions = {
         expires: new Date(Date.now() + process.env.COOKIE_EXPIRATION_TIME * 24 * 60 * 60 * 1000 ),
         httpOnly: true
@@ -95,15 +92,10 @@ exports.login = async(req,res,next) => {
 exports.authorize = (role) => {
      return (req,res,next) => {
          if(!(req.user.role === role)){
-         
-         console.log(`the user is not authorized to perform this function your role is: ${req.user.role} but you need to have the: ${role}`)
              return next(
                     new AppError('Anuthorized',401)
              ); 
          }
-         
-         console.log(`user is authorized you have: ${req.user.role} role`);
-         
          next();
       }
 }
@@ -122,27 +114,20 @@ exports.forgetPassword = async (req,res) => {
     
     const protocol = req.protocol;
     const host = req.get('host');
-    
-    
     const resetURL = `${protocol}://${host}/api/v1/users/reset-password/${resetToken}`
-    
     const message = `Click this link ${resetURL} to reset your password, just send vai mailtrap just nows!`;
    await SendEmail({
        subject: "this is test email",
        message
     });
     
-    
     res.status(200).json({
        status: 'success',
        message: 'Token sent to your email, check your email please!',
-     
     })
- 
 }
 
 exports.resetPassword = async (req,res,next) => {
-
    const hashedToken = crypto
            .createHash('sha256')
            .update(req.params.token)

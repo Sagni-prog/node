@@ -32,8 +32,7 @@ exports.commentPolicy =  async(req,res,next) => {
                    new AppError('you cant delete others post',401)
            )
        }
-        next();
-       
+        next(); 
        
     } catch (error) {
         next(error);

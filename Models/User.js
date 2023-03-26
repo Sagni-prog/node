@@ -88,8 +88,6 @@ UserSchema.methods.changedPasswordAfter = async function(JWTTimestamp){
                      10
               );
               
-              console.log("JWT: ",JWTTimestamp," ,PT: ",changedAtTimestamp)
-              
               return await JWTTimestamp < changedAtTimestamp;
           }
           

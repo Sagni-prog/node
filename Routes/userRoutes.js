@@ -1,7 +1,9 @@
 const express = require('express');
+const multer = require('multer');
 const AuthController = require('./../Controllers/AuthController');
 const Auth = require('./../middlewares/Auth');
 
+const upload = multer({ dest: 'public/img/user' })
 const router = express.Router();
 
     router.get('/',Auth,AuthController.authorize('admin'),AuthController.index);
