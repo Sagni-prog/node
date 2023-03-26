@@ -9,6 +9,8 @@ config
 # production
 /build
 
+/public/img
+
 
 # misc
 .DS_Store
